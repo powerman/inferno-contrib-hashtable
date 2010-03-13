@@ -13,5 +13,3 @@ DISBIN=../../dis/lib
 
 <$ROOT/mkfiles/mkdis
 
-LIMBOFLAGS=$LIMBOFLAGS -I../../module
-

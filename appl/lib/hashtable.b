@@ -3,7 +3,7 @@
 # with polymorphism added to support any values.
 implement HashTable;
 
-include "hashtable.m";
+include "../../module/hashtable.m";
 
 # from Aho Hopcroft Ullman
 fun1(s:string, n:int):int

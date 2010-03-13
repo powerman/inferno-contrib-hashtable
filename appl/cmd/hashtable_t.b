@@ -6,7 +6,7 @@ include "sys.m";
 include "draw.m";
 include "arg.m";
 	arg: Arg;
-include "hashtable.m";
+include "../../module/hashtable.m";
 	hashtable: HashTable;
 	Hash: import hashtable;
 
