@@ -1,0 +1,19 @@
+<../../mkconfig
+
+TARG=\
+	hashtable_t.dis\
+
+SYSMODULES=\
+	sys.m\
+	draw.m\
+	arg.m\
+
+MODULES=\
+	../../module/hashtable.m\
+
+DISBIN=../../dis
+
+<$ROOT/mkfiles/mkdis
+
+LIMBOFLAGS=$LIMBOFLAGS -I../../module/
+

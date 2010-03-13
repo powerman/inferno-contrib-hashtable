@@ -6,4 +6,6 @@ syntax: glob
 
 syntax: regexp
 
+# build
+appl/.*\.dis
 
