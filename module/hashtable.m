@@ -1,6 +1,6 @@
 HashTable: module
 {
-	PATH: con "/contrib/hashtable/dis/lib/hashtable.dis";
+	PATH: con "/opt/powerman/hashtable/dis/lib/hashtable.dis";
 
 	HashNode: adt[T]{
 		key:string;
