@@ -1,5 +1,11 @@
 <../../mkconfig
 
+DIRS=\
+	t\
+
+<$ROOT/mkfiles/mksubdirs
+test:V: test-$SHELLTYPE
+
 TARG=\
 	hashtable.dis\
 
@@ -12,4 +18,3 @@ MODULES=\
 DISBIN=../../dis/lib
 
 <$ROOT/mkfiles/mkdis
-
