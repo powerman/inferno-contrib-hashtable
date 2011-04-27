@@ -14,4 +14,4 @@ MODULES=\
 	../../../module/hashtable.m\
 
 <mktest
-LIMBOFLAGS=$LIMBOFLAGS -I../../../../../../
+LIMBOFLAGS=$LIMBOFLAGS -I$INFERNO_HOME
