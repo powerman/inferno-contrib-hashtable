@@ -1,0 +1,101 @@
+.TH HASHTABLE 2
+.SH NAME
+hashtable: Hash, HashNode \- polymorphic hash table
+.SH SYNOPSIS
+.EX
+include "opt/powerman/hashtable/module/hashtable.m";
+hashtable := load HashTable HashTable->PATH;
+
+HashNode: adt[T]{
+        key:    string;
+        val:    T;
+};
+Hash: adt[T]{
+        new:    fn(size:int):ref Hash[T];
+        get:    fn(h:self ref Hash[T], key:string):T;
+        set:    fn(h:self ref Hash[T], key:string, val:T);
+        del:    fn(h:self ref Hash[T], key:string);
+        all:    fn(h:self ref Hash[T]): list of ref HashNode[T];
+};
+
+.EE
+.SH DESCRIPTION
+.PP
+The hash module provides support for arrays that are indexed by keys of
+type 
+.BR string .
+The values may be any 
+.B ref
+types including 
+.B string
+(limitation of limbo's polymorphism). If you need to use numeric type as
+value then either create wrapper adt for it or use 
+.IR hash (2).
+.PP
+.B Hash.new
+creates and returns a new Hash with 
+.I size
+slots. The hashing
+works best if 
+.I size
+is a prime number.
+.PP
+.B Hash.get
+Search the table for an element with the given 
+.I key
+and return
+the value found; return 
+.B nil
+if none was found.
+.PP
+.B Hash.set
+Adds a new 
+.I key/value
+pair to the table. If an element with the
+same 
+.I key
+already exists, it will acquire the new 
+.IR value .
+.PP
+.B Hash.del
+Removes any element with the given 
+.I key
+from the table. Do
+nothing if there is no such 
+.I key
+in the table.
+.PP
+.B Hash.all
+Returns a list of all 
+.I key/value
+pairs stored in the table.
+.SH EXAMPLE
+.EX
+include "opt/powerman/hashtable/module/hashtable.m";
+        hashtable: HashTable;
+        Hash: import hashtable;
+Int: adt { i: int; };
+HashOfString: type Hash[string];
+
+hashtable = load HashTable HashTable->PATH;
+hs  := Hash[string].new(7);
+hi  := Hash[ref Int].new(7);
+hhs := Hash[ref HashOfString].new(7);
+
+hs.set("key", "value");
+hi.set("key", ref Int(42));
+hs1 := HashOfString.new(97);
+hs2 := HashOfString.new(97);
+hhs.set("first", hs1);
+hhs.set("second", hs2);
+hhs.get("first").set("key", "value");
+
+.EE
+.SH SOURCE
+.PP
+.B /opt/powerman/hashtable/appl/lib/hashtable.b
+.br
+.SH SEE ALSO
+.PP
+.IR hash (2)
+.SH BUGS

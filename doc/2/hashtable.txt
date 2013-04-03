@@ -1,0 +1,87 @@
+HASHTABLE(2)
+============
+
+== NAME
+
+hashtable: Hash, HashNode - polymorphic hash table
+
+
+== SYNOPSIS
+
+----
+include "opt/powerman/hashtable/module/hashtable.m";
+hashtable := load HashTable HashTable->PATH;
+
+HashNode: adt[T]{
+	key:	string;
+	val:	T;
+};
+Hash: adt[T]{
+	new:	fn(size:int):ref Hash[T];
+	get:	fn(h:self ref Hash[T], key:string):T;
+	set:	fn(h:self ref Hash[T], key:string, val:T);
+	del:	fn(h:self ref Hash[T], key:string);
+	all:	fn(h:self ref Hash[T]): list of ref HashNode[T];
+};
+----
+
+
+== DESCRIPTION
+
+The hash module provides support for arrays that are indexed by keys of
+type *string*. The values may be any *ref* types including *string*
+(limitation of limbo's polymorphism). If you need to use numeric type as
+value then either create wrapper adt for it or use hash(2).
+
+*Hash.new* creates and returns a new Hash with 'size' slots. The hashing
+works best if 'size' is a prime number. 
+
+*Hash.get* Search the table for an element with the given 'key' and return
+the value found; return *nil* if none was found.
+
+*Hash.set* Adds a new 'key/value' pair to the table. If an element with the
+same 'key' already exists, it will acquire the new 'value'.
+
+*Hash.del* Removes any element with the given 'key' from the table. Do
+nothing if there is no such 'key' in the table.
+
+*Hash.all* Returns a list of all 'key/value' pairs stored in the table.
+
+
+== EXAMPLE
+
+----
+include "opt/powerman/hashtable/module/hashtable.m";
+	hashtable: HashTable;
+	Hash: import hashtable;
+Int: adt { i: int; };
+HashOfString: type Hash[string];
+
+hashtable = load HashTable HashTable->PATH;
+hs  := Hash[string].new(7);
+hi  := Hash[ref Int].new(7);
+hhs := Hash[ref HashOfString].new(7);
+
+hs.set("key", "value");
+hi.set("key", ref Int(42));
+hs1 := HashOfString.new(97);
+hs2 := HashOfString.new(97);
+hhs.set("first", hs1);
+hhs.set("second", hs2);
+hhs.get("first").set("key", "value");
+----
+
+
+== SOURCE
+
+`/opt/powerman/hashtable/appl/lib/hashtable.b`
+
+
+== SEE ALSO
+
+hash(2)
+
+
+== BUGS
+
+
